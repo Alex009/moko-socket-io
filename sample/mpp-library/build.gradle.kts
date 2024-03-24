@@ -11,13 +11,20 @@ plugins {
 }
 
 kotlin {
-    android()
-    ios()
+    jvmToolchain(17)
+    applyDefaultHierarchyTemplate()
+
+    androidTarget()
+    iosArm64()
+    iosSimulatorArm64()
 }
 
 dependencies {
     commonMainImplementation(libs.serialization)
     commonMainApi(projects.socketIo)
+}
+android {
+    namespace = "com.icerockdev.library"
 }
 
 framework {

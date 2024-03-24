@@ -18,13 +18,14 @@ group = "dev.icerock.moko"
 version = libs.versions.mokoSocketIoVersion.get()
 
 kotlin {
-    android {
+    jvmToolchain(17)
+    androidTarget {
         publishLibraryVariants("release", "debug")
     }
-    ios()
+    iosArm64()
     iosSimulatorArm64()
     jvm()
-
+    applyDefaultHierarchyTemplate()
     sourceSets {
         val commonMain by getting
 
@@ -39,11 +40,6 @@ kotlin {
         val jvmMain by getting {
             dependsOn(commonJvm)
         }
-
-        val iosMain by getting
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
     }
 }
 
@@ -54,6 +50,9 @@ dependencies {
         exclude(group = "org.json", module = "json")
     }
     "jvmMainImplementation"(libs.socketIo)
+}
+android {
+    namespace = "dev.icerock.moko.socket"
 }
 
 val javadocJar by tasks.registering(Jar::class) {
